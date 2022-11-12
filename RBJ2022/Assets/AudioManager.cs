@@ -12,12 +12,15 @@ namespace Beans2022.Audio
         [SerializeField] private AudioSource bgMusicOne;
         [SerializeField] private AudioSource bgMusicTwo;
         [SerializeField] private AudioSource bgMusicThree;
+        [SerializeField] private GameObject voiceLineObject;
+        private AudioSource[] randomVoiceLines;
 
         [SerializeField] private float _fadeSpeed = 0.1f;
         [SerializeField] private float _volumeIncrement = 0.1f;
 
         private float sleepPercent; //how tired are we in percentage of the SpeedTimer
         private float maxTimer; //how much time does the player start with (get from Game Manager)
+        private bool waiting; //for random Voice Line IEnumerator
 
         #endregion
 
@@ -62,6 +65,7 @@ namespace Beans2022.Audio
             bgMusicThree.volume = 0;
 
             maxTimer = GameManager.Instance.SleepTimer;
+            randomVoiceLines = voiceLineObject.GetComponents<AudioSource>();
         }
 
         private void Update()
@@ -104,6 +108,11 @@ namespace Beans2022.Audio
                     StartCoroutine(FadeInTrack(bgMusicThree));
                 }
             }
+
+            if (!waiting)
+            {
+                StartCoroutine(nameof(RandomVoiceLineGenerator));
+            }
         }
 
         #endregion
@@ -130,6 +139,18 @@ namespace Beans2022.Audio
                 yield return new WaitForSeconds(_fadeSpeed);
                 audioSource.volume -= _volumeIncrement;
             }
+        }
+
+        private IEnumerator RandomVoiceLineGenerator()
+        {
+            waiting = true;
+            float voiceLineWaitTime = Random.Range(5,20);
+            int voiceLineIndex = Random.Range(0, randomVoiceLines.Length);
+
+            AudioSource voiceLine = randomVoiceLines[voiceLineIndex];
+            voiceLine.Play();
+            yield return new WaitForSeconds(voiceLineWaitTime);
+            waiting = false;
         }
 
         #endregion
