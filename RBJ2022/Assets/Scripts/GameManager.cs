@@ -19,7 +19,7 @@ namespace Beans2022
 		[SerializeField] private Canvas _highscoresStart;
 		[SerializeField] private Canvas _highscoresEnd;
 		[SerializeField] private Canvas _gameOver;
-
+		
 
 		#endregion
 
@@ -39,6 +39,15 @@ namespace Beans2022
 		{
 			get { return _gameSpeed; }
 			private set { _gameSpeed = value; }
+		}
+
+
+		private int _sleepTimer;
+
+		public int SleepTimer
+		{
+			get { return _sleepTimer; }
+			set { _sleepTimer = value; }
 		}
 
 

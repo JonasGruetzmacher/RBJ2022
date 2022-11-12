@@ -18,5 +18,23 @@ namespace EnumCollection
         Pause,
     }
 
+    public enum Booster
+    {
+        Kaffee,
+        Energy,
+        Cola,
+        Riegel,
+    }
 
+    public enum Downer
+    {
+        Kissen,
+        Bier,
+    }
+
+    public enum PickUpType
+    {
+        Booster,
+        Downer,
+    }
 }
