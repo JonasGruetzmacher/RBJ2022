@@ -41,7 +41,6 @@ namespace Beans2022
 			private set { _gameSpeed = value; }
 		}
 
-
 		private int _sleepTimer;
 
 		public int SleepTimer
