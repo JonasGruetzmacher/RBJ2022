@@ -33,6 +33,15 @@ namespace Beans2022
 			private set { _state = value; }
 		}
 
+		[SerializeField] private float _gameSpeed;
+
+		public float Speed
+		{
+			get { return _gameSpeed; }
+			private set { _gameSpeed = value; }
+		}
+
+
 		#endregion
 
 		#region Public Functions
