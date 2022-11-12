@@ -4,100 +4,104 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class GameManager : MonoBehaviour
+
+namespace Beans2022
 {
-    #region Fields
-
-    public static GameManager Instance;
-	[SerializeField] private Canvas _mainMenu;
-	[SerializeField] private Canvas _credits;
-	[SerializeField] private Canvas _settings;
-	[SerializeField] private Canvas _pauseMenu;
-	[SerializeField] private Canvas _highscoresStart;
-	[SerializeField] private Canvas _highscoresEnd;
-	[SerializeField] private Canvas _gameOver;
-
-
-	#endregion
-
-	#region Properties
-
-	private GameState _state;
-
-	public GameState State
+	public class GameManager : MonoBehaviour
 	{
-		get { return _state; }
-		private set { _state = value; }
-	}
+		#region Fields
 
-	#endregion
+		public static GameManager Instance;
+		[SerializeField] private Canvas _mainMenu;
+		[SerializeField] private Canvas _credits;
+		[SerializeField] private Canvas _settings;
+		[SerializeField] private Canvas _pauseMenu;
+		[SerializeField] private Canvas _highscoresStart;
+		[SerializeField] private Canvas _highscoresEnd;
+		[SerializeField] private Canvas _gameOver;
 
-	#region Public Functions
 
-	public void SwitchState(GameState state)
-	{
-		_state = state;
+		#endregion
 
-		switch (_state)
+		#region Properties
+
+		private GameState _state;
+
+		public GameState State
 		{
-			case GameState.MainMenu:
-				Instance._mainMenu.gameObject.SetActive(true);
-                Instance._pauseMenu.gameObject.SetActive(false);
-                Instance._credits.gameObject.SetActive(false);
-                Instance._highscoresEnd.gameObject.SetActive(false);
-                Instance._highscoresStart.gameObject.SetActive(false);
-                Instance._gameOver.gameObject.SetActive(false);
-				Instance._settings.gameObject.SetActive(false);
-                break;
+			get { return _state; }
+			private set { _state = value; }
+		}
 
-			case GameState.Credits:
-				Instance._mainMenu.gameObject.SetActive(false);
-				Instance._credits.gameObject.SetActive(true);
-				break;
+		#endregion
 
-			case GameState.Settings:
-				Instance._settings.gameObject.SetActive(true);
-				break;
+		#region Public Functions
 
-			case GameState.GameStarting:
-				break;
+		public void SwitchState(GameState state)
+		{
+			_state = state;
 
-			case GameState.GameLoop:
-				break;
+			switch (_state)
+			{
+				case GameState.MainMenu:
+					Instance._mainMenu.gameObject.SetActive(true);
+					Instance._pauseMenu.gameObject.SetActive(false);
+					Instance._credits.gameObject.SetActive(false);
+					Instance._highscoresEnd.gameObject.SetActive(false);
+					Instance._highscoresStart.gameObject.SetActive(false);
+					Instance._gameOver.gameObject.SetActive(false);
+					Instance._settings.gameObject.SetActive(false);
+					break;
 
-			case GameState.GameOver:
-				break;
+				case GameState.Credits:
+					Instance._mainMenu.gameObject.SetActive(false);
+					Instance._credits.gameObject.SetActive(true);
+					break;
 
-			case GameState.HighScoreMenu:
-				break;
+				case GameState.Settings:
+					Instance._settings.gameObject.SetActive(true);
+					break;
 
-			case GameState.HighScoreEnd:
-				break;
+				case GameState.GameStarting:
+					break;
 
-			case GameState.Pause:
-				break;
+				case GameState.GameLoop:
+					break;
 
-			case GameState.Quit:
+				case GameState.GameOver:
+					break;
+
+				case GameState.HighScoreMenu:
+					break;
+
+				case GameState.HighScoreEnd:
+					break;
+
+				case GameState.Pause:
+					break;
+
+				case GameState.Quit:
 
 #if UNITY_EDITOR
-                EditorApplication.ExitPlaymode();
+					EditorApplication.ExitPlaymode();
 #endif
-                Application.Quit();
-				break;
+					Application.Quit();
+					break;
 
+			}
 		}
+
+		#endregion
+
+		#region Private Functions
+		private void Start()
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+
+		#endregion
+
+
 	}
-
-	#endregion
-
-	#region Private Functions
-	private void Start()
-	{
-		Instance = this;
-		DontDestroyOnLoad(gameObject);
-	}
-
-	#endregion
-
-
 }
